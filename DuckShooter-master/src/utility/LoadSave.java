@@ -95,8 +95,10 @@ public class LoadSave {
             public void run() {
                 try {
                     Clip clip = AudioSystem.getClip();
-                    AudioInputStream inputStream = AudioSystem.getAudioInputStream(LoadSave.class.getResourceAsStream("/"+filename+".wav"));
-                    clip.open(inputStream);
+                    InputStream audioSrc = getClass().getResourceAsStream("/"+filename+".wav");
+                    InputStream bufferedIn = new BufferedInputStream(audioSrc);
+                    AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedIn);
+                    clip.open(audioStream);
                     clip.start();
                 } catch (Exception e) {
                     e.printStackTrace();
